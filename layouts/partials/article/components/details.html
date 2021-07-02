@@ -1,0 +1,33 @@
+<!-- details.html -->
+<div class="article-details">
+
+
+    <h2 class="article-title">
+        <a href="{{ .RelPermalink }}">
+            {{- .Title -}}
+        </a>
+    </h2>
+
+    {{ with .Params.description }}
+    <h3 class="article-subtitle">
+        {{ . }}
+    </h3>
+    {{ end }}
+
+    {{- if not .Date.IsZero -}}
+    <footer class="article-time">
+        <time class="article-time--published"></time>
+        {{ partial "helper/icon" "clock" }}
+        {{- .Date.Format (or .Site.Params.dateFormat.published "Jan 02, 2006") -}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+    {{ if .Params.categories }}
+        {{ partial "helper/icon" "folder" }}
+        {{ range (.GetTerms "categories") }}
+            <a style="color: inherit;" href="{{ .RelPermalink }}">
+                {{ .LinkTitle }}
+            </a>&nbsp;&nbsp;
+        {{ end }}
+    {{ end }}
+    </footer>
+    {{- end -}}
+</div>
